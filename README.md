@@ -3,11 +3,16 @@
 * Grep-like tool for Cisco IOS configs
 * Based on [ciscoconfparse](https://pypi.python.org/pypi/ciscoconfparse/)
 
+#Installation
+
+	sudo cp ciscoconfparse-cli.py /usr/local/bin/ciscoconfparse-cli.py
+	sudo ln -s /usr/local/bin/ciscoconfparse-cli.py /usr/local/bin/cigrep
+
 #Examples
 
 ##Find all VLAN tagged interfaces
 
-	lobo@k0ld:~/fooIdoo/ciscoconfparse-cli$ ./ciscoconfparse-cli.py interface "encapsulation dot1q" example.txt 
+	$ cigrep interface "encapsulation dot1q" example.txt 
 	interface Ethernet0/1.10
 	interface Ethernet0/1.20
 
@@ -16,7 +21,7 @@
 
 Right, regular expressions are supported ;-)
 
-	lobo@k0ld:~/fooIdoo/ciscoconfparse-cli$ ./ciscoconfparse-cli.py ^interface "encapsulation (dot1q|ppp)" example.txt 
+	$ cigrep ^interface "encapsulation (dot1q|ppp)" example.txt 
 	interface Ethernet0/1.10
 	interface Ethernet0/1.20
 	interface Serial1/0
@@ -25,13 +30,22 @@ Right, regular expressions are supported ;-)
 
 ##Find all interfaces *without* an IP helper configuration
 
-	lobo@k0ld:~/fooIdoo/ciscoconfparse-cli$ ./ciscoconfparse-cli.py -v ^interface "ip helper-address" example.txt 
+	$ cigrep -v ^interface "ip helper-address" example.txt 
 	interface Ethernet0/0
 	interface Ethernet0/1
 	interface Ethernet0/1.10
 	interface Serial1/0
 	interface Serial1/1
 	interface Serial1/2
+
+
+##Use the -A option to display the complete configuration section of a matching pattern
+
+	$ cigrep -A "^interface" "ip helper-address" example.txt 
+	interface Ethernet0/1.20
+	 encapsulation dot1q 20
+	 ip address 172.16.20.1 255.255.255.0
+	 ip helper-address 172.16.30.100
 
 
 ## example.txt
