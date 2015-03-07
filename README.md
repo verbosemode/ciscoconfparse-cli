@@ -47,6 +47,14 @@ Right, regular expressions are supported ;-)
 	 ip address 172.16.20.1 255.255.255.0
 	 ip helper-address 172.16.30.100
 
+# TODO
+
+* Multiple input filenames -> glob
+  - filename: matched-pattern output
+  - -l for grep-like behaviour -> List matching file names w/o matched lines
+* Add setup.cfg
+* Switch to argparse
+
 
 ## example.txt
 
